@@ -28,23 +28,18 @@ import android.widget.Button;
  * to which text is appended.
  *
  */
-public class LogTextBox1 extends Activity {
-    
-    private LogTextBox mText;
-    
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
-        setContentView(R.layout.log_text_box_1);
-        
-        mText = (LogTextBox) findViewById(R.id.text);
-        
-        Button addButton = (Button) findViewById(R.id.add);
-        addButton.setOnClickListener(new View.OnClickListener() {
+class LogTextBox1 : Activity() {
 
-            public void onClick(View v) {
-                mText.append("This is a test\n");
-            } });
+    private var mText: LogTextBox? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.log_text_box_1)
+
+        mText = findViewById<View>(R.id.text) as LogTextBox
+        val addButton = findViewById<View>(R.id.add) as Button
+        addButton.setOnClickListener { mText!!.append("This is a test\n") }
     }
 }
+
