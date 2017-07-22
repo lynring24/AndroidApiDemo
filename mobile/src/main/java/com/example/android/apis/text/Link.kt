@@ -57,10 +57,18 @@ class Link : Activity() {
         // dynamic source (eg, the network).
 
         val t3 = findViewById<View>(R.id.text3) as TextView
-        t3.text = Html.fromHtml(
-                "<b>text3: Constructed from HTML programmatically.</b>  Text with a " +
-                        "<a href=\"http://www.google.com\">link</a> " +
-                        "created in the Java source code using HTML.")
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            t3.text = Html.fromHtml(
+                    "<b>text3: Constructed from HTML programmatically.</b>  Text with a " +
+                            "<a href=\"http://www.google.com\">link</a> " +
+                            "created in the Java source code using HTML.", Html.FROM_HTML_MODE_LEGACY)
+        }
+        else{
+            t3.text = Html.fromHtml(
+                    "<b>text3: Constructed from HTML programmatically.</b>  Text with a " +
+                            "<a href=\"http://www.google.com\">link</a> " +
+                            "created in the Java source code using HTML.")
+        }
         t3.movementMethod = LinkMovementMethod.getInstance()
 
         // text4 illustrates constructing a styled string containing a
