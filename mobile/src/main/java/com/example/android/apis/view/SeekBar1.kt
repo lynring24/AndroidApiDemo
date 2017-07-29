@@ -18,6 +18,7 @@ package com.example.android.apis.view;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -30,7 +31,7 @@ import com.example.android.apis.R;
 /**
  * Demonstrates how to use a seek bar
  */
-public class SeekBar1 extends Activity implements SeekBar.OnSeekBarChangeListener {
+/*public class SeekBar1 extends Activity implements SeekBar.OnSeekBarChangeListener {
     
     SeekBar mSeekBar;
     TextView mProgressText;
@@ -68,6 +69,37 @@ public class SeekBar1 extends Activity implements SeekBar.OnSeekBarChangeListene
     }
 
     public void onStopTrackingTouch(SeekBar seekBar) {
+        mTrackingText.setText(getString(R.string.seekbar_tracking_off));
+    }
+}*/
+class SeekBar1 : Activity(), SeekBar.OnSeekBarChangeListener{
+    lateinit private var mSeekBar : SeekBar;
+    lateinit private var mProgressText : TextView;
+    lateinit private var mTrackingText : TextView;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.seekbar_1)
+
+        mSeekBar = findViewById<View>(R.id.seek) as SeekBar
+        mSeekBar.setOnSeekBarChangeListener(this)
+        mProgressText = findViewById<View>(R.id.progress) as TextView
+        mTrackingText = findViewById<View>(R.id.tracking) as TextView
+
+        (findViewById<View>(R.id.enabled) as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
+            findViewById<View>(R.id.seekMin).setEnabled(isChecked);
+            findViewById<View>(R.id.seekMax).setEnabled(isChecked);
+            mSeekBar.setEnabled(isChecked);
+        }
+    }
+    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromTouch: Boolean) {
+        mProgressText.setText("$progress ${resources.getString(R.string.seekbar_from_touch)} = $fromTouch");
+    }
+
+    override fun onStartTrackingTouch(p0: SeekBar?) {
+        mTrackingText.setText(getString(R.string.seekbar_tracking_on));
+    }
+
+    override fun onStopTrackingTouch(p0: SeekBar?) {
         mTrackingText.setText(getString(R.string.seekbar_tracking_off));
     }
 }
