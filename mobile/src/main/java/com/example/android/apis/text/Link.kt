@@ -46,7 +46,7 @@ class Link : Activity() {
         // respond to user input.  To make them active, you need to
         // call setMovementMethod() on the TextView object.
 
-        val t2 :TextView by lazy {
+        val t2 by lazy {
             findViewById<View>(R.id.text2) as TextView
         }
         t2.movementMethod = LinkMovementMethod.getInstance()
@@ -58,36 +58,39 @@ class Link : Activity() {
         // illustrate how you might display text that came from a
         // dynamic source (eg, the network).
 
-        val t3 = findViewById<View>(R.id.text3) as TextView
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            t3.text = Html.fromHtml(
-                    "<b>text3: Constructed from HTML programmatically.</b>  Text with a " +
-                            "<a href=\"http://www.google.com\">link</a> " +
-                            "created in the Java source code using HTML.", Html.FROM_HTML_MODE_LEGACY)
+        val t3 by lazt {
+            findViewById<View>(R.id.text3) as TextView
         }
-        else{
-            t3.text = Html.fromHtml(
-                    "<b>text3: Constructed from HTML programmatically.</b>  Text with a " +
-                            "<a href=\"http://www.google.com\">link</a> " +
-                            "created in the Java source code using HTML.")
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                t3.text = Html.fromHtml(
+                        "<b>text3: Constructed from HTML programmatically.</b>  Text with a " +
+                                "<a href=\"http://www.google.com\">link</a> " +
+                                "created in the Java source code using HTML.", Html.FROM_HTML_MODE_LEGACY)
+            }
+            else{
+                t3.text = Html.fromHtml(
+                        "<b>text3: Constructed from HTML programmatically.</b>  Text with a " +
+                                "<a href=\"http://www.google.com\">link</a> " +
+                                "created in the Java source code using HTML.")
+            }
+            t3.movementMethod = LinkMovementMethod.getInstance()
+
+            // text4 illustrates constructing a styled string containing a
+            // link without using HTML at all.  Again, for a fixed string
+            // you should probably be using a string resource, not a
+            // hardcoded value.
+
+            val ss = SpannableString(
+                    "text4: Manually created spans. Click here to dial the phone.")
+
+            ss.setSpan(StyleSpan(Typeface.BOLD), 0, 30,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            ss.setSpan(URLSpan("tel:4155551212"), 31 + 6, 31 + 10,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+            val t4 = findViewById<View>(R.id.text4) as TextView
+            t4.text = ss
+            t4.movementMethod = LinkMovementMethod.getInstance()
         }
-        t3.movementMethod = LinkMovementMethod.getInstance()
-
-        // text4 illustrates constructing a styled string containing a
-        // link without using HTML at all.  Again, for a fixed string
-        // you should probably be using a string resource, not a
-        // hardcoded value.
-
-        val ss = SpannableString(
-                "text4: Manually created spans. Click here to dial the phone.")
-
-        ss.setSpan(StyleSpan(Typeface.BOLD), 0, 30,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        ss.setSpan(URLSpan("tel:4155551212"), 31 + 6, 31 + 10,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-        val t4 = findViewById<View>(R.id.text4) as TextView
-        t4.text = ss
-        t4.movementMethod = LinkMovementMethod.getInstance()
     }
 }
