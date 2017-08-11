@@ -21,7 +21,7 @@ import com.example.android.apis.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import kotlinx.android.synthetic.main.log_text_box_1.*
 
 /**
  * Using a LogTextBox to display a scrollable text area
@@ -39,8 +39,7 @@ class LogTextBox1 : Activity() {
 
         val mText by lazy {
             findViewById<View>(R.id.text) as LogTextBox }
-        val addButton = findViewById<View>(R.id.add) as Button
-        addButton.setOnClickListener { mText.append("This is a test\n") }
+        add.setOnClickListener { mText.append("This is a test\n") }
     }
 }
 
