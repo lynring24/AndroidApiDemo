@@ -30,16 +30,17 @@ import android.widget.Button;
  */
 class LogTextBox1 : Activity() {
 
-    private var mText: LogTextBox? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.log_text_box_1)
 
-        mText = findViewById<View>(R.id.text) as LogTextBox
+        val mText by lazy {
+            findViewById<View>(R.id.text) as LogTextBox }
         val addButton = findViewById<View>(R.id.add) as Button
-        addButton.setOnClickListener { mText!!.append("This is a test\n") }
+        addButton.setOnClickListener { mText.append("This is a test\n") }
     }
 }
 
