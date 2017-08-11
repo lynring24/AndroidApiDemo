@@ -70,12 +70,12 @@ class AlarmController : Activity (){
         setContentView(R.layout.alarm_controller)
 
         // Watch for button clicks.
-        var button = findViewById<View>(R.id.one_shot) as (Button)
+        var button = findViewById<View>(R.id.one_shot)
         button.setOnClickListener(mOneShotListener)
-        button = findViewById<View>(R.id.start_repeating) as (Button)
-        button.setOnClickListener(mStartRepeatingListener);
-        button = findViewById<View>(R.id.stop_repeating) as (Button)
-        button.setOnClickListener(mStopRepeatingListener);
+        button = findViewById<View>(R.id.start_repeating)
+        button.setOnClickListener(mStartRepeatingListener)
+        button = findViewById<View>(R.id.stop_repeating)
+        button.setOnClickListener(mStopRepeatingListener)
     }
    val mOneShotListener = OnClickListener{
             // When the alarm goes off, we want to broadcast an Intent to our
@@ -87,9 +87,9 @@ class AlarmController : Activity (){
             val sender:PendingIntent = PendingIntent.getBroadcast(this@AlarmController, 0, intent, 0)
 
             // We want the alarm to go off 30 seconds from now.
-            var calendar:Calendar  = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis())
-            calendar.add(Calendar.SECOND, 30);
+            var calendar:Calendar = Calendar.getInstance()
+            calendar.timeInMillis=System.currentTimeMillis()
+            calendar.add(Calendar.SECOND, 30)
 
             // Schedule the alarm!
              val am:AlarmManager = getSystemService(ALARM_SERVICE) as (AlarmManager)
