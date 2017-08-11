@@ -46,7 +46,9 @@ class Link : Activity() {
         // respond to user input.  To make them active, you need to
         // call setMovementMethod() on the TextView object.
 
-        val t2 = findViewById<View>(R.id.text2) as TextView
+        val t2 :TextView by lazy {
+            findViewById<View>(R.id.text2) as TextView
+        }
         t2.movementMethod = LinkMovementMethod.getInstance()
 
         // text3 shows creating text with links from HTML in the Java
