@@ -41,6 +41,7 @@ class FragmentAlertDialog : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_dialog)
 
+        //Display text on Screen
         text.setText(R.string.fragment_alert_dialog_msg)
 
         // Watch for button clicks.
@@ -53,7 +54,7 @@ class FragmentAlertDialog : Activity() {
     fun showDialog() {
         val newFragment: DialogFragment = MyAlertDialogFragment.newInstance(
                 R.string.alert_dialog_two_buttons_title)
-        newFragment.show(getFragmentManager(), "dialog")
+        newFragment.show(fragmentManager, "dialog")
     }
 
     fun doPositiveClick() {
@@ -68,7 +69,7 @@ class FragmentAlertDialog : Activity() {
 //END_INCLUDE(activity)
 
     //BEGIN_INCLUDE(dialog)
-    //Question :: static class 는 어떻게 처리하는지 , static method const
+    //-> static class 는 어떻게 처리하는지 , static method const
     public class MyAlertDialogFragment : DialogFragment() {
         companion object {
             @JvmStatic
@@ -80,7 +81,6 @@ class FragmentAlertDialog : Activity() {
                 return frag
             }
         }
-
 
         override
         public fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
