@@ -171,7 +171,7 @@
             screenshots and will not be mirrored to non-secure displays.</string>
 
     <string name="fragment_alert_dialog">App/Fragment/Alert Dialog</string>
-
+    <string name="fragment_alert_dialog_msg">Example of displaying an alert dialog with a DialogFragment</string>
     <string name="fragment_arguments">App/Fragment/Arguments</string>
     <string name="fragment_arguments_msg">Demonstrates a fragment that takes arguments
         as a Bundle at runtime (on the right) or from attributes in a layout (on the left).</string>
