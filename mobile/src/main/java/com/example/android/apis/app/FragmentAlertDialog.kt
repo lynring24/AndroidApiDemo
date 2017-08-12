@@ -44,9 +44,9 @@ class FragmentAlertDialog : Activity() {
         text.setText(R.string.fragment_alert_dialog_msg)
 
         // Watch for button clicks.
-        show.setOnClickListener(OnClickListener {
+        show.setOnClickListener {
             showDialog()
-        })
+        }
     }
 
     //BEGIN_INCLUDE(activity)
