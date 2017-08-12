@@ -33,7 +33,7 @@ import android.widget.TextView;
 /**
  * Demonstrates how to show an AlertDialog that is managed by a Fragment.
  */
-public class FragmentAlertDialog extends Activity {
+/*public class FragmentAlertDialog extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +103,81 @@ public class FragmentAlertDialog extends Activity {
                         }
                     )
                     .create();
+        }
+    }
+//END_INCLUDE(dialog)
+}*/
+class FragmentAlertDialog : Activity() {
+
+    override protected fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.fragment_dialog)
+
+        val tv = findViewById<TextView>(R.id.text)
+        tv.setText("Example of displaying an alert dialog with a DialogFragment")
+
+        // Watch for button clicks.
+        val button = findViewById<Button>(R.id.show)
+        button.setOnClickListener(OnClickListener {
+            showDialog()
+        })
+    }
+
+    //BEGIN_INCLUDE(activity)
+    fun showDialog() {
+        val newFragment: DialogFragment = MyAlertDialogFragment.newInstance(
+                R.string.alert_dialog_two_buttons_title)
+        newFragment.show(getFragmentManager(), "dialog")
+    }
+
+    fun doPositiveClick() {
+        // Do stuff here.
+        Log.i("FragmentAlertDialog", "Positive click!")
+    }
+
+    fun doNegativeClick() {
+        // Do stuff here.
+        Log.i("FragmentAlertDialog", "Negative click!")
+    }
+//END_INCLUDE(activity)
+
+    //BEGIN_INCLUDE(dialog)
+    //Question :: static class 는 어떻게 처리하는지 , static method const
+    public class MyAlertDialogFragment : DialogFragment() {
+        companion object {
+            @JvmStatic
+            fun newInstance(title: Int): MyAlertDialogFragment {
+                val frag = MyAlertDialogFragment()
+                val args = Bundle()
+                args.putInt("title", title)
+                frag.arguments = args
+                return frag
+            }
+        }
+
+
+        override
+        public fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+            val title: Int = arguments.getInt("title")
+
+            return AlertDialog.Builder(getActivity())
+                    .setIcon(R.drawable.alert_dialog_icon)
+                    .setTitle(title)
+                    .setPositiveButton(R.string.alert_dialog_ok,
+                            DialogInterface.OnClickListener {
+                                fun onClick(dialog: DialogInterface, whichButton: Int) {
+                                    FragmentAlertDialog::doPositiveClick
+                                }
+                            }
+                    )
+                    .setNegativeButton(R.string.alert_dialog_cancel,
+                            DialogInterface.OnClickListener{
+                                fun onClick(dialog: DialogInterface, whichButton: Int) {
+                                    FragmentAlertDialog::doNegativeClick
+                                }
+                            }
+                    )
+                    .create()
         }
     }
 //END_INCLUDE(dialog)
