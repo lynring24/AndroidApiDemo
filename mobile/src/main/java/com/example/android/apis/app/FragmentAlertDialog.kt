@@ -29,6 +29,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.TextView
+import kotlinx.android.synthetic.main.fragment_dialog.*
 
 /**
  * Demonstrates how to show an AlertDialog that is managed by a Fragment.
@@ -40,12 +41,10 @@ class FragmentAlertDialog : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_dialog)
 
-        val tv = findViewById<TextView>(R.id.text)
-        tv.setText(R.string.fragment_alert_dialog_msg)
+        text.setText(R.string.fragment_alert_dialog_msg)
 
         // Watch for button clicks.
-        val button = findViewById<Button>(R.id.show)
-        button.setOnClickListener(OnClickListener {
+        show.setOnClickListener(OnClickListener {
             showDialog()
         })
     }
