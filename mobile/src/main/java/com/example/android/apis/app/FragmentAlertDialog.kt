@@ -14,99 +14,26 @@
  * limitations under the License.
  */
 
-package com.example.android.apis.app;
+package com.example.android.apis.app
 
-import com.example.android.apis.R;
+import com.example.android.apis.R
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
+import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
+import android.app.DialogFragment
+import android.content.DialogInterface
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.view.View.OnClickListener
+import android.widget.Button
+import android.widget.TextView
 
 /**
  * Demonstrates how to show an AlertDialog that is managed by a Fragment.
  */
-/*public class FragmentAlertDialog extends Activity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_dialog);
-
-        View tv = findViewById(R.id.text);
-        ((TextView)tv).setText("Example of displaying an alert dialog with a DialogFragment");
-
-        // Watch for button clicks.
-        Button button = (Button)findViewById(R.id.show);
-        button.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                showDialog();
-            }
-        });
-    }
-
-//BEGIN_INCLUDE(activity)
-    void showDialog() {
-        DialogFragment newFragment = MyAlertDialogFragment.newInstance(
-                R.string.alert_dialog_two_buttons_title);
-        newFragment.show(getFragmentManager(), "dialog");
-    }
-
-    public void doPositiveClick() {
-        // Do stuff here.
-        Log.i("FragmentAlertDialog", "Positive click!");
-    }
-    
-    public void doNegativeClick() {
-        // Do stuff here.
-        Log.i("FragmentAlertDialog", "Negative click!");
-    }
-//END_INCLUDE(activity)
-    
-//BEGIN_INCLUDE(dialog)
-    public static class MyAlertDialogFragment extends DialogFragment {
-
-        public static MyAlertDialogFragment newInstance(int title) {
-            MyAlertDialogFragment frag = new MyAlertDialogFragment();
-            Bundle args = new Bundle();
-            args.putInt("title", title);
-            frag.setArguments(args);
-            return frag;
-        }
-        
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            int title = getArguments().getInt("title");
-            
-            return new AlertDialog.Builder(getActivity())
-                    .setIcon(R.drawable.alert_dialog_icon)
-                    .setTitle(title)
-                    .setPositiveButton(R.string.alert_dialog_ok,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                ((FragmentAlertDialog)getActivity()).doPositiveClick();
-                            }
-                        }
-                    )
-                    .setNegativeButton(R.string.alert_dialog_cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                ((FragmentAlertDialog)getActivity()).doNegativeClick();
-                            }
-                        }
-                    )
-                    .create();
-        }
-    }
-//END_INCLUDE(dialog)
-}*/
 class FragmentAlertDialog : Activity() {
 
     override protected fun onCreate(savedInstanceState: Bundle?) {
@@ -164,21 +91,14 @@ class FragmentAlertDialog : Activity() {
                     .setIcon(R.drawable.alert_dialog_icon)
                     .setTitle(title)
                     .setPositiveButton(R.string.alert_dialog_ok,
-                            DialogInterface.OnClickListener {
-                                fun onClick(dialog: DialogInterface, whichButton: Int) {
-                                    FragmentAlertDialog::doPositiveClick
-                                }
-                            }
+                            {dialog, whichButton ->FragmentAlertDialog::doPositiveClick}
                     )
                     .setNegativeButton(R.string.alert_dialog_cancel,
-                            DialogInterface.OnClickListener{
-                                fun onClick(dialog: DialogInterface, whichButton: Int) {
-                                    FragmentAlertDialog::doNegativeClick
-                                }
-                            }
+                            {dialog, whichButton ->FragmentAlertDialog::doNegativeClick }
                     )
                     .create()
         }
     }
 //END_INCLUDE(dialog)
 }
+
