@@ -30,6 +30,7 @@ import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.Toast
 import kotlinx.android.synthetic.main.local_service_binding.*
+import kotlinx.android.synthetic.main.local_service_controller.*
 
 class LocalServiceActivities {
     /**
@@ -50,10 +51,8 @@ class LocalServiceActivities {
             setContentView(R.layout.local_service_controller)
 
             // Watch for button clicks.
-            var button = findViewById<View>(R.id.start) as Button
-            button.setOnClickListener(mStartListener)
-            button = findViewById<View>(R.id.stop) as Button
-            button.setOnClickListener(mStopListener)
+            start.setOnClickListener(mStartListener)
+            stop.setOnClickListener(mStopListener)
         }
 
         private val mStartListener = OnClickListener {
