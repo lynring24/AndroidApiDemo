@@ -15,7 +15,7 @@
 -->
 
 <!-- Demonstrates starting and stopping a local service.
-     See corresponding Java code com.android.sdk.app.ServiceStartArguments.java. -->
+     See corresponding Java code com.android.sdk.ServiceStartArguments.ktjava. -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:padding="4dip"
     android:gravity="center_horizontal"
