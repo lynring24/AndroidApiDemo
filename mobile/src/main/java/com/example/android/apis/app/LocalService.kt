@@ -14,108 +14,104 @@
  * limitations under the License.
  */
 
-package com.example.android.apis.app;
+package com.example.android.apis.app
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.Service;
-import android.content.Intent;
-import android.os.Binder;
-import android.os.IBinder;
-import android.os.PowerManager;
-import android.util.Log;
-import android.widget.Toast;
+import android.app.Notification
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.Service
+import android.content.Intent
+import android.os.Binder
+import android.os.IBinder
+import android.os.PowerManager
+import android.util.Log
+import android.widget.Toast
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
+import com.example.android.apis.R
 
 /**
  * This is an example of implementing an application service that runs locally
- * in the same process as the application.  The {@link LocalServiceActivities.Controller}
- * and {@link LocalServiceActivities.Binding} classes show how to interact with the
+ * in the same process as the application.  The [LocalServiceActivities.Controller]
+ * and [LocalServiceActivities.Binding] classes show how to interact with the
  * service.
+
  *
- * <p>Notice the use of the {@link NotificationManager} when interesting things
+ * Notice the use of the [NotificationManager] when interesting things
  * happen in the service.  This is generally how background services should
  * interact with the user, rather than doing something more disruptive such as
  * calling startActivity().
  */
 //BEGIN_INCLUDE(service)
-public class LocalService extends Service {
-    private NotificationManager mNM;
+class LocalService : Service() {
+    private var mNM: NotificationManager? = null
 
     // Unique Identification Number for the Notification.
     // We use it on Notification start, and to cancel it.
-    private int NOTIFICATION = R.string.local_service_started;
+    private val NOTIFICATION = R.string.local_service_started
 
     /**
      * Class for clients to access.  Because we know this service always
      * runs in the same process as its clients, we don't need to deal with
      * IPC.
      */
-    public class LocalBinder extends Binder {
-        LocalService getService() {
-            return LocalService.this;
-        }
+    inner class LocalBinder : Binder() {
+        internal val service: LocalService
+            get() = this@LocalService
     }
-    
-    @Override
-    public void onCreate() {
-        mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+
+    override fun onCreate() {
+        mNM = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         // Display a notification about us starting.  We put an icon in the status bar.
-        showNotification();
+        showNotification()
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("LocalService", "Received start id " + startId + ": " + intent);
-        return START_NOT_STICKY;
+    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        Log.i("LocalService", "Received start id $startId: $intent")
+        return Service.START_NOT_STICKY
     }
 
-    @Override
-    public void onDestroy() {
+    override fun onDestroy() {
         // Cancel the persistent notification.
-        mNM.cancel(NOTIFICATION);
+        mNM!!.cancel(NOTIFICATION)
 
         // Tell the user we stopped.
-        Toast.makeText(this, R.string.local_service_stopped, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.local_service_stopped, Toast.LENGTH_SHORT).show()
     }
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        return mBinder;
+    override fun onBind(intent: Intent): IBinder? {
+        return mBinder
     }
 
     // This is the object that receives interactions from clients.  See
     // RemoteService for a more complete example.
-    private final IBinder mBinder = new LocalBinder();
+    private val mBinder = LocalBinder()
 
     /**
      * Show a notification while this service is running.
      */
-    private void showNotification() {
+    private fun showNotification() {
         // In this sample, we'll use the same text for the ticker and the expanded notification
-        CharSequence text = getText(R.string.local_service_started);
+        val text = getText(R.string.local_service_started)
 
         // The PendingIntent to launch our activity if the user selects this notification
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, LocalServiceActivities.Controller.class), 0);
+        val contentIntent = PendingIntent.getActivity(this, 0,
+                Intent(this, LocalServiceActivities.Controller::class.java), 0)
 
         // Set the info for the views that show in the notification panel.
-        Notification notification = new Notification.Builder(this)
+        val notification = Notification.Builder(this)
                 .setSmallIcon(R.drawable.stat_sample)  // the status icon
                 .setTicker(text)  // the status text
                 .setWhen(System.currentTimeMillis())  // the time stamp
                 .setContentTitle(getText(R.string.local_service_label))  // the label of the entry
                 .setContentText(text)  // the contents of the entry
                 .setContentIntent(contentIntent)  // The intent to send when the entry is clicked
-                .build();
+                .build()
 
         // Send the notification.
-        mNM.notify(NOTIFICATION, notification);
+        mNM!!.notify(NOTIFICATION, notification)
     }
 }
 //END_INCLUDE(service)
